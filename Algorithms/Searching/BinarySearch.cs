@@ -47,9 +47,9 @@ namespace Algorithms.Searching
 
             if (val.CompareTo(arr[high]) == 0) return high; 
             if (val.CompareTo(arr[low]) == 0) return low; 
-            
             if (val.CompareTo(arr[high]) > 0) {
-                return -1 * high ;
+                //larger than the entire array
+                return -1 * (high + 1) - 1;
             }
             if (val.CompareTo(arr[low]) < 0) {
                 //smaller than the entire array
