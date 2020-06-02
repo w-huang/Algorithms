@@ -1,1 +1,1 @@
-MSBuild.exe Algorithms/Algorithms.csproj
+MSBuild.exe Algorithms/Algorithms.csproj /p:AllowUnsafeBlocks=true

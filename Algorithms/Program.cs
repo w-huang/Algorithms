@@ -18,29 +18,22 @@
 
     class Program
     {
+        internal const string test = "hello world";
+
         static void Main(string[] args)
         {
-			string[] nk = Console.ReadLine().Split(' ');
 
-			int n = Convert.ToInt32(nk[0]);
+            unsafe{
 
-			int k = Convert.ToInt32(nk[1]);
+                fixed (char* ptr = test) {
+                    for (var i = 0; i < test.Length; ++i) {
+                        *(ptr + i) = 'h';
+                    }
+                }
+            }
 
-			string[] r_qC_q = Console.ReadLine().Split(' ');
-
-			int r_q = Convert.ToInt32(r_qC_q[0]);
-
-			int c_q = Convert.ToInt32(r_qC_q[1]);
-
-			int[][] obstacles = new int[k][];
-
-			for (int i = 0; i < k; i++) {
-				obstacles[i] = Array.ConvertAll(Console.ReadLine().Split(' '), obstaclesTemp => Convert.ToInt32(obstaclesTemp));
-			}
-
-			int result = QueensAttack.solve(n, k, r_q, c_q, obstacles);
-
-			Console.WriteLine(result);
+            
+            Console.WriteLine(test);
 
         }
     }
