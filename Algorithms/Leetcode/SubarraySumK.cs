@@ -1,10 +1,11 @@
-// https://www.hackerrank.com/challenges/queens-attack-2/problem
 namespace Algorithms.HackerRank
 {
     using System;
     using Algorithms.Searching;
+    using System.Collections;
+    using System.Collections.Generic;
 
-    class Solution 
+    class SubarraySumKSolution 
     {
         public int SubarraySum(int[] nums, int k) {
             int[] sums = new int[nums.Length];

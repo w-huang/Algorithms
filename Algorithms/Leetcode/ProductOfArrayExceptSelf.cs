@@ -1,6 +1,6 @@
 //Given an array nums of n integers where n > 1,  return an array output such that output[i] is equal to the product of all the elements of nums except nums[i].
 
-public class Solution {
+public class ProductOfArrayExceptSelfSolution {
 
     public int[] ProductExceptSelf(int[] nums) {
         var ans = new int[nums.Length];

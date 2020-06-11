@@ -1,4 +1,4 @@
-public class Solution {
+public class Google2Solution {
 
     public int HeightChecker(int[] heights) {
                 
@@ -48,12 +48,12 @@ public class Solution {
        }
 
        if (i < name.Length) {
-            return false
+            return false;
        }
 
        if (j < typed.Length) {
            ++j;
-           for (j; j < typed.Length; ++j)  {
+           for (; j < typed.Length; ++j)  {
                if (typed[j] != typed[j-1]) return false;
            }
        }

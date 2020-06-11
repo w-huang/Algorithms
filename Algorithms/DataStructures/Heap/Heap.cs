@@ -1,30 +1,28 @@
-namespace Algorithms.Heaping
+namespace Algorithms.DataStructures
 {
     using System;
     using System.Collections;
 
-    class BinaryHeap<T> : where T implements IComparable    
+    class BinaryHeap<T> 
+        where T: IComparable    
     {
 
         T[] arr; 
+        public int Size { get; private set;} 
+        public int Count { get; private set;}
+        public bool isMaxHeap { get; private set;} 
 
-        public int Size { get; } 
-        public int Count { get; };
-        public bool isMaxHeap { get;};
-
-        //Constructor for empty heap
-        public Heap(int size, bool max=false;) {
+        public BinaryHeap(int size, bool max=false) {
             arr = new T[size];
             Size = size;
             Count = 0;
             isMaxHeap = max;
 
-            return;
         }
 
         //TODO: do we need to memcpy the items over? might not want to heapify original array
-        public Heap(T[] items, bool max=false) {
-            arr = Array.Copy(items, 0, arr, items.Length); 
+        public BinaryHeap(T[] items, bool max=false) {
+            Array.Copy(items, 0, arr, 0, items.Length); 
             Count = arr.Length;
             Size = arr.Length; // size is equal to the array
             isMaxHeap = max;
@@ -47,17 +45,18 @@ namespace Algorithms.Heaping
         }
 
         public T Peek() {
+            if (Count <= 0) throw new Exception("Cannot peek empty heap");
             return arr[0];
         }
 
         public T Pop() {
             if (Count == 0) {
-                return null; // throw exception?
+                throw new Exception("Popping empty heap"); // throw exception?
             }
 
             T result = arr[0];
-            count--;
-            arr[0] = arr[count];
+            Count--;
+            arr[0] = arr[Count];
             siftDown(0);
 
             return result;
@@ -75,54 +74,43 @@ namespace Algorithms.Heaping
             return;
         }
 
-        private void siftDown(int n) {
-            int l = left(n);
-            int r = right(n);
-            if (n >= Count) return; //nothing to do, node not in heap
-            if (l >= Count && r >= Count) return; //nothing to do, is leaf node
+        private void siftUp(int n) {
 
-            
-            while (!isLeaf(n) && !isHeap(n)) {
+            while (n != 0 && !isHeap(parent(n))) {
+                int p = parent(n);
 
+                //swap
+                var temp = arr[n];
+                arr[n] = arr[p];
+                arr[p] = temp;
+                n = p;
             }
-            if (l >= Count || r >= Count) {
-                var child = l >= Count ? r : l;
 
-                if (arr[child].CompareTo(arr[n]) > 0 && isMaxHeap
-                    || arr[child].CompareTo(arr[n]) < 0 && !isMaxHeap ) {
-                    //swap 
-                    T temp = arr[child];
-                    arr[child] = arr[n];
-                    arr[n] = temp;
-                }
-
-            }
-             
         }
 
         private void siftDown(int n) {
-
+            int mod = isMaxHeap ? 1 : -1;
             while (!isHeap(n)) {
                 //isHeap failed implies the node is NOT leaf
-                
-                int mod = isMaxHeap ? 1 : -1;
-                
                 if (right(n) >= Count) {
-                    //only left child, can swap directly
+                    //only left( child, can swap directly
                     var temp = arr[n];
-                    arr[n] = arr[left];
-                    arr[left] = temp;
+                    arr[n] = arr[left(n)];
+                    arr[left(n)] = temp;
+                    n = left(n);
                 } else {
-                    //right and left
+                    //right and left(
+                    int index =  mod * arr[left(n)].CompareTo(arr[right(n)]) > 0 ? right(n) : left(n);
+                    var temp = arr[n];
+                    arr[n] = arr[index];
+                    arr[index] = temp;
+                    n = index;
                 }
-
             }
-
         }
 
 
         //HELPER METHODS
-        
         bool isHeap(int n) {
             bool result = true;
             int mod = isMaxHeap ? 1 : -1;
@@ -142,9 +130,9 @@ namespace Algorithms.Heaping
             return 2 * n + 1 > Count;
         }
 
-        void resize(); {
+        void resize() {
             T[] next = new T[arr.Length * 2];
-            Array.Copy(arr, 0, next, arr.Length);
+            Array.Copy(arr, 0, next, 0, arr.Length);
             this.arr = next;
         }
 

@@ -24,6 +24,7 @@ namespace Algorithms.HackerRank
             // x[i] (assuming it has not yet crossed), then there is an equivalent analysis that can be
             // done using only x[i] ... x[i - 3]. Thus, we store a int[4] buffer (technically O(1)) to track
             // the last 4 of x
+            return 1;
 		}
     }
 }
