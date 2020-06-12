@@ -22,6 +22,7 @@ namespace Algorithms.DataStructures
 
         //TODO: do we need to memcpy the items over? might not want to heapify original array
         public BinaryHeap(T[] items, bool max=false) {
+            arr = new T[items.Length];
             Array.Copy(items, 0, arr, 0, items.Length); 
             Count = arr.Length;
             Size = arr.Length; // size is equal to the array
@@ -38,8 +39,8 @@ namespace Algorithms.DataStructures
             }
 
             arr[Count] = item;
-            siftUp(Count);
             Count++;
+            siftUp(Count - 1);
 
             return;
         }
@@ -51,7 +52,7 @@ namespace Algorithms.DataStructures
 
         public T Pop() {
             if (Count == 0) {
-                throw new Exception("Popping empty heap"); // throw exception?
+                throw new Exception("Cannot pop empty heap"); // throw exception?
             }
 
             T result = arr[0];
@@ -62,20 +63,26 @@ namespace Algorithms.DataStructures
             return result;
         }
 
+        public void Print() {
+            for (var i = 0; i <Count; ++i) {
+                Console.Write(arr[i]); Console.Write(", ");
+            }
+            Console.WriteLine();
+        }
+
         //Private Methods
         private void Heapify() {
             int n = parent(Count - 1);
 
             //for each item that is not a leaf, perform siftdown
-            for( var i = n; i > 0; --i) {
-                siftDown(n);
+            for(var i = n; i > -1; --i) {
+                siftDown(i);
             }
 
             return;
         }
 
         private void siftUp(int n) {
-
             while (n != 0 && !isHeap(parent(n))) {
                 int p = parent(n);
 
@@ -100,7 +107,7 @@ namespace Algorithms.DataStructures
                     n = left(n);
                 } else {
                     //right and left(
-                    int index =  mod * arr[left(n)].CompareTo(arr[right(n)]) > 0 ? right(n) : left(n);
+                    int index =  mod * arr[left(n)].CompareTo(arr[right(n)]) > 0 ? left(n) : right(n);
                     var temp = arr[n];
                     arr[n] = arr[index];
                     arr[index] = temp;
@@ -131,9 +138,11 @@ namespace Algorithms.DataStructures
         }
 
         void resize() {
+            Print();
             T[] next = new T[arr.Length * 2];
             Array.Copy(arr, 0, next, 0, arr.Length);
             this.arr = next;
+            Print();
         }
 
         int right(int curr) {

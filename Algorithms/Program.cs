@@ -2,6 +2,7 @@
 {
     using Algorithms.Searching;
     using Algorithms.HackerRank;
+    using Algorithms.DataStructures;
 	using System.CodeDom.Compiler;
 	using System.Collections.Generic;
 	using System.Collections;
@@ -22,18 +23,11 @@
 
         static void Main(string[] args)
         {
+            var myHeap = new BinaryHeap<int>(new int[] {5, 1, 2, 4, 2, 3}, true);   
 
-            unsafe{
-
-                fixed (char* ptr = test) {
-                    for (var i = 0; i < test.Length; ++i) {
-                        *(ptr + i) = 'h';
-                    }
-                }
-            }
-
-            
-            Console.WriteLine(test);
+            myHeap.Add(-40);
+            myHeap.Add(-100);
+            myHeap.Add(400);
 
         }
     }
