@@ -11,6 +11,21 @@ namespace Algorithms.Sorting
 
         }
 
+        private static void swap(int[] arr, int i, int j) {
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            return;
+        }
+
+        private static int Partition(int[] arr, int index, int low, int high) {
+            if (index > high || index < low) throw new Exception("IndexOutOfRange");
+
+            int result = low;
+            swap(arr, low, index);
+            return 1;
+        }
+
         //Partitions T around partition index pi so that arr[i] < arr[pi] for all i < pi, and 
         //arr[j] > arr[pi] for all j > pi
         private static int Partition<T> (T[] arr, int pi, int high = -1, int low = 0) where T:IComparable 

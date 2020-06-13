@@ -3,6 +3,7 @@
     using Algorithms.Searching;
     using Algorithms.HackerRank;
     using Algorithms.DataStructures;
+    using Algorithms.EPI;
 	using System.CodeDom.Compiler;
 	using System.Collections.Generic;
 	using System.Collections;
@@ -23,12 +24,44 @@
 
         static void Main(string[] args)
         {
-            var myHeap = new BinaryHeap<int>(new int[] {5, 1, 2, 4, 2, 3}, true);   
 
-            myHeap.Add(-40);
-            myHeap.Add(-100);
-            myHeap.Add(400);
-
+            int[] testcase = new int[] {1,5,5,5,5,5,5,5,5,1,5,5,5,5};
+            Print(testcase);
+            DNF(testcase,5);
+            Print(testcase);
         }
+
+        static void DNF(int[] a, int k) {
+            int i=0, kloc=0, j=0;
+
+            for (i = 0; i < a.Length; ++i) {
+                if (a[i] < k) {
+                    swap(a, i, j);
+                    swap(a, j, kloc);
+                    kloc++;
+                    j++;
+                } 
+                else if (a[i] == k) {
+                    swap(a, j, i);
+                    j++;
+                }
+            }
+        }
+
+        private static void swap(int[] arr, int i, int j) {
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            return;
+        }
+ 
+        static void Print(int[] arr) {
+            for (var i = 0; i < arr.Length; ++i){ 
+                Console.Write(String.Format("{0}, ", arr[i]));
+            }
+
+            Console.WriteLine();
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-namespace Algorithms.HackerRank
+namespace Algorithms.LeetCode
 {
     using System;
     using Algorithms.Searching;
