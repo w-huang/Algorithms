@@ -84,6 +84,7 @@ namespace Algorithms.DataStructures
 
         private void siftUp(int n) {
             while (n != 0 && !isHeap(parent(n))) {
+                Console.WriteLine(String.Format("Trying to sift up for n = {0}, arr[n] = {1}", n, arr[n]));
                 int p = parent(n);
 
                 //swap
@@ -92,7 +93,6 @@ namespace Algorithms.DataStructures
                 arr[p] = temp;
                 n = p;
             }
-
         }
 
         private void siftDown(int n) {
@@ -123,11 +123,11 @@ namespace Algorithms.DataStructures
             int mod = isMaxHeap ? 1 : -1;
 
             if (left(n) < Count) {
-                result &= mod * arr[n].CompareTo(arr[left(n)]) > 0;          
+                result &= mod * arr[n].CompareTo(arr[left(n)]) >= 0;          
             }
 
             if (right(n) < Count) {
-                result &= mod * arr[n].CompareTo(arr[right(n)]) > 0;
+                result &= mod * arr[n].CompareTo(arr[right(n)]) >= 0;
             }
 
             return result;
@@ -138,7 +138,6 @@ namespace Algorithms.DataStructures
         }
 
         void resize() {
-            Print();
             T[] next = new T[arr.Length * 2];
             Array.Copy(arr, 0, next, 0, arr.Length);
             this.arr = next;
