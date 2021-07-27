@@ -1,3 +1,2 @@
-./Algorithms/bin/Debug/netcoreapp3.1/Algorithms.exe
-
+dotnet run --project Algorithms/Algorithms.csproj
 
